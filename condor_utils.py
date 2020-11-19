@@ -74,7 +74,8 @@ class UCSDHTCondorJob(HTCondorJob):
     # -file doesn't exist for this condor version, and if the submit file name gets put
     # right after -queue 1, then condor thinks it's an argument to -queue, hence the -debug
     # sandwiched in between
-    submit_command = "condor_submit -queue 1 -debug"
+    #submit_command = "condor_submit -queue 1 -debug"
+    submit_command = "condor_submit -debug"
     executable = os.path.join(BASEDIR, "condor_executable_jobqueue.sh")
     config_name = "htcondor"
 
@@ -125,7 +126,7 @@ def make_htcondor_cluster(
             "memory": memory,
             "cores": cores,
             "log_directory": log_directory,
-            "dashboard_address": dashboard_address,
+            "scheduler_options": {"dashboard_address": dashboard_address},
             "python": "python",
             "job_extra":  {
                 "should_transfer_files": "YES",
